@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>User-Controlled Data Demo - WCAG 3.3.4</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:760px;margin:40px auto;padding:0 20px;line-height:1.5;color:#222}fieldset{border:1px solid #aaa;padding:20px}label{display:block;margin-top:14px;font-weight:700}input,textarea{box-sizing:border-box;width:100%;padding:10px;margin-top:5px;font:inherit}.actions{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}button{padding:10px 16px;font:inherit}.note{background:#f4f4f4;padding:12px;margin-bottom:20px}.status{margin-top:20px;padding:12px;background:#e9f5ff}
+</style>
+</head>
+<body>
+<main>
+<h1>Edit your saved profile</h1>
+<p class="note"><strong>Accessibility test demo:</strong> This page intentionally allows stored, user-controllable data to be changed and deleted without a review, confirmation, or reversal mechanism. It is intended for testing WCAG 2.2 Success Criterion 3.3.4.</p>
+<form id="profileForm">
+<fieldset>
+<legend>Saved profile information</legend>
+<label for="displayName">Display name</label>
+<input id="displayName" name="displayName" value="Alex Morgan">
+<label for="bio">Biography</label>
+<textarea id="bio" name="bio" rows="5">Accessibility enthusiast and frequent traveler.</textarea>
+<div class="actions">
+<button type="submit">Save changes</button>
+<button type="button" id="deleteBio">Delete biography</button>
+</div>
+</fieldset>
+</form>
+<div id="status" class="status" aria-live="polite">Saved profile data is currently available.</div>
+</main>
+<script>
+const form=document.getElementById('profileForm');
+const status=document.getElementById('status');
+const nameField=document.getElementById('displayName');
+const bioField=document.getElementById('bio');
+let saved={name:nameField.value,bio:bioField.value};
+form.addEventListener('submit',e=>{e.preventDefault();saved={name:nameField.value,bio:bioField.value};status.textContent='Changes were saved immediately.';});
+document.getElementById('deleteBio').addEventListener('click',()=>{saved.bio='';bioField.value='';status.textContent='The saved biography was deleted immediately.';});
+</script>
+</body>
+</html>
